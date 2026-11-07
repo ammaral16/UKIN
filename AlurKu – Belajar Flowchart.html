@@ -705,6 +705,55 @@
     }
     .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 
+    /* Modal Soal & Studi Kasus TKR */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 12px;
+      max-height: 62vh;
+      overflow-y: auto;
+      padding: 2px;
+    }
+    .case-card {
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 13px 15px;
+      background: var(--card-muted);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 9px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .case-card:hover {
+      border-color: var(--hl);
+      box-shadow: var(--shadow-sm);
+    }
+    .case-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .case-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .case-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tx);
+    }
+    .case-desc {
+      font-size: 12px;
+      color: var(--tx-sec);
+      line-height: 1.5;
+      margin: 0;
+    }
+
     /* Modal Pseudocode */
     .pseudo-box {
       background: #0f172a;
@@ -862,14 +911,16 @@
     </div>
   </div>
 
-  <!-- Contoh Alur -->
-  <select class="btn" id="ex" title="Muat contoh flowchart" style="max-width:160px">
-    <option value="">Contoh alur…</option>
-    <option value="1">1. Ganjil-Genap</option>
-    <option value="2">2. Jumlah 1..n</option>
-    <option value="3">3. Membuat Teh</option>
-    <option value="4">4. Cek Ban</option>
-    <option value="5">5. Periksa 4 Ban</option>
+  <!-- Contoh Alur & Studi Kasus TKR -->
+  <button class="btn" id="bCases" title="Buka daftar soal studi kasus otomotif TKR">📋 Soal Kasus</button>
+  <select class="btn" id="ex" title="Muat contoh flowchart & studi kasus" style="max-width:215px">
+    <option value="">Pilih Contoh Alur…</option>
+    <option value="1">☕ 1. Membuat Teh Manis</option>
+    <option value="2">🚗 2. Kasus 1: Tekanan Angin Ban</option>
+    <option value="3">🛑 3. Kasus 2: Tebal Kampas Rem</option>
+    <option value="4">⚡ 4. Kasus 3: Tegangan Aki Mobil</option>
+    <option value="5">💰 5. Kasus 4: Biaya Servis Bengkel</option>
+    <option value="6">🌡️ 6. Kasus 5: Suhu Coolant Radiator</option>
   </select>
 
   <button class="btn sm" id="bClear" title="Hapus semua elemen kanvas">Kosongkan</button>
@@ -1032,7 +1083,7 @@
     </div>
     <div>
       <label style="font-weight:700;display:block;margin-bottom:4px;font-size:12.5px">Kelas / Jurusan</label>
-      <input type="text" id="stClass" placeholder="Contoh: X RPL 1 / X TKJ 2">
+      <input type="text" id="stClass" placeholder="Contoh: X TKR 1 / XI TKR 2">
     </div>
     <div>
       <label style="font-weight:700;display:block;margin-bottom:4px;font-size:12.5px">Nomor Absen (Opsional)</label>
@@ -1045,6 +1096,70 @@
       <button class="btn sm" id="bCancelStudent">Batal</button>
       <button class="btn pri sm" id="bSaveStudent">Simpan</button>
     </div>
+  </div>
+</dialog>
+
+<!-- DIALOG: DAFTAR SOAL & STUDI KASUS TKR -->
+<dialog id="casesModal" class="wide">
+  <h3>📋 Soal & Studi Kasus Algoritma (TKR)</h3>
+  <p class="hint" style="margin-bottom:14px">Pilih contoh skenario logika alur kegiatan atau diagnosis otomotif Teknik Kendaraan Ringan (TKR) untuk dimuat ke kanvas:</p>
+  <div class="cases-grid">
+    <div class="case-card">
+      <div class="case-card-header">
+        <span class="case-badge" style="background:#8b5cf6">Alur Kegiatan</span>
+        <span class="case-title">☕ Membuat Teh Manis</span>
+      </div>
+      <p class="case-desc">Algoritma alur kegiatan sehari-hari dengan perulangan rasa manis: menyiapkan cangkir & bahan, menyeduh air panas, mencelup teh, memasukkan gula, mengaduk, serta menguji apakah rasa manis sudah pas.</p>
+      <button class="btn pri sm" onclick="loadCase(1)">🚀 Muat Flowchart</button>
+    </div>
+
+    <div class="case-card">
+      <div class="case-card-header">
+        <span class="case-badge" style="background:#0284c7">Studi Kasus 1</span>
+        <span class="case-title">🚗 Pemeriksaan Tekanan Angin Ban Mobil</span>
+      </div>
+      <p class="case-desc">Mekanik mengukur tekanan angin ban mobil dengan batas aman <b>30 PSI</b>. Jika tekanan kurang dari 30 PSI, ban harus diisi angin. Jika 30 PSI atau lebih, tekanan dinyatakan aman.</p>
+      <button class="btn pri sm" onclick="loadCase(2)">🚀 Muat Flowchart</button>
+    </div>
+
+    <div class="case-card">
+      <div class="case-card-header">
+        <span class="case-badge" style="background:#0284c7">Studi Kasus 2</span>
+        <span class="case-title">🛑 Diagnosis Ketebalan Kampas Rem Cakram</span>
+      </div>
+      <p class="case-desc">Pengecekan ketebalan kampas rem cakram depan dengan batas minimal aman <b>4,0 mm</b>. Jika tebal kampas kurang dari 4,0 mm, tampilkan status <i>"Ganti Kampas Rem"</i>. Jika 4,0 mm atau lebih, tampilkan <i>"Kampas Rem Aman"</i>.</p>
+      <button class="btn pri sm" onclick="loadCase(3)">🚀 Muat Flowchart</button>
+    </div>
+
+    <div class="case-card">
+      <div class="case-card-header">
+        <span class="case-badge" style="background:#0284c7">Studi Kasus 3</span>
+        <span class="case-title">⚡ Diagnosis Kondisi Tegangan Aki Mobil</span>
+      </div>
+      <p class="case-desc">Pengukuran tegangan akumulator (aki) menggunakan multitester: <b>V &lt; 10 V</b> (Aki Rusak/Ganti), <b>10 V &le; V &le; 12 V</b> (Perlu Cas/Recharge), <b>12 V &lt; V &le; 14 V</b> (Kondisi Normal), dan <b>V &gt; 14 V</b> (Overcharge/Cek Regulator).</p>
+      <button class="btn pri sm" onclick="loadCase(4)">🚀 Muat Flowchart</button>
+    </div>
+
+    <div class="case-card">
+      <div class="case-card-header">
+        <span class="case-badge" style="background:#0284c7">Studi Kasus 4</span>
+        <span class="case-title">💰 Kategori Biaya Servis Berkala Bengkel TKR</span>
+      </div>
+      <p class="case-desc">Pengelompokan estimasi biaya servis: <b>Biaya &le; Rp500.000</b> (Kategori Murah), <b>Rp500.000 &lt; Biaya &le; Rp1.000.000</b> (Kategori Sedang), <b>Rp1.000.000 &lt; Biaya &le; Rp2.000.000</b> (Kategori Mahal), dan <b>Biaya &gt; Rp2.000.000</b> (Kategori Sangat Mahal).</p>
+      <button class="btn pri sm" onclick="loadCase(5)">🚀 Muat Flowchart</button>
+    </div>
+
+    <div class="case-card">
+      <div class="case-card-header">
+        <span class="case-badge" style="background:#0284c7">Studi Kasus 5</span>
+        <span class="case-title">🌡️ Sistem Peringatan Suhu Coolant Radiator Mesin</span>
+      </div>
+      <p class="case-desc">Indikator suhu cairan pendingin mesin (coolant): <b>Suhu &lt; 80°C</b> (Mesin Dipanaskan/Warming Up), <b>80°C &le; Suhu &le; 95°C</b> (Suhu Kerja Normal), <b>95°C &lt; Suhu &le; 105°C</b> (Peringatan Suhu Tinggi), dan <b>Suhu &gt; 105°C</b> (Bahaya Overheating/Matikan Mesin).</p>
+      <button class="btn pri sm" onclick="loadCase(6)">🚀 Muat Flowchart</button>
+    </div>
+  </div>
+  <div class="row" style="justify-content:flex-end;margin-top:16px">
+    <button class="btn pri" id="bCloseCases">Tutup</button>
   </div>
 </dialog>
 
@@ -2658,6 +2773,27 @@ if (bZoomSide) {
   bZoomSide.onclick = () => $('#bPseudo').click();
 }
 
+/* Modal Soal & Studi Kasus TKR */
+function loadCase(id) {
+  if (EX[id]) {
+    EX[id]();
+    if ($('#casesModal').open) $('#casesModal').close();
+    showToast('Contoh alur berhasil dimuat ke kanvas!');
+  }
+}
+window.loadCase = loadCase;
+
+const bCasesBtn = $('#bCases');
+if (bCasesBtn) {
+  bCasesBtn.onclick = () => {
+    if (!$('#casesModal').open) $('#casesModal').showModal();
+  };
+}
+const bCloseCasesBtn = $('#bCloseCases');
+if (bCloseCasesBtn) {
+  bCloseCasesBtn.onclick = () => $('#casesModal').close();
+}
+
 /* =========================================================
    10. KAMUS SIMBOL STANDAR ANSI / ISO
    ========================================================= */
@@ -3074,147 +3210,187 @@ function load(ns, es) {
 }
 
 const EX = {
+  // 1. Membuat Teh Manis
   1: () => {
-    setMode('prog');
-    load([
-      ['term', 300, 20, 'Mulai'],
-      ['input', 300, 100, 'bilangan'],
-      ['decision', 290, 190, 'bilangan mod 2 = 0'],
-      ['output', 540, 217, '"Genap"'],
-      ['output', 60, 217, '"Ganjil"'],
-      ['term', 300, 370, 'Selesai']
-    ], [
-      [0, 1],
-      [1, 2],
-      [2, 3, 'Ya', 'right', 'left'],
-      [2, 4, 'Tidak', 'left', 'right'],
-      [3, 5, '', 'bottom', 'right'],
-      [4, 5, '', 'bottom', 'left']
-    ]);
-  },
-  2: () => {
-    setMode('prog');
-    load([
-      ['term', 300, 20, 'Mulai'],
-      ['input', 300, 100, 'batas n'],
-      ['prep', 300, 190, 'angka = 1\ntotal = 0'],
-      ['decision', 290, 290, 'angka <= batas n'],
-      ['process', 540, 317, 'total = total + angka\nangka = angka + 1'],
-      ['output', 300, 440, '"Jumlah = " + total'],
-      ['term', 300, 530, 'Selesai']
-    ], [
-      [0, 1],
-      [1, 2],
-      [2, 3],
-      [3, 4, 'Ya', 'right', 'left'],
-      [4, 3, '', 'top', 'top'],
-      [3, 5, 'Tidak', 'bottom', 'top'],
-      [5, 6]
-    ]);
-  },
-  3: () => {
     setMode('alur');
     load([
       ['term', 400, 20, 'Mulai'],
       ['input', 400, 100, 'Siapkan gelas, teh celup, gula, dan air'],
-      ['process', 400, 200, 'Panaskan air'],
-      ['decision', 390, 290, 'Apakah air sudah mendidih?'],
-      ['process', 400, 410, 'Tuang air panas ke gelas berisi teh celup'],
-      ['process', 400, 515, 'Tunggu 3 menit, lalu angkat teh celup'],
-      ['decision', 390, 620, 'Apakah ingin teh manis?'],
-      ['process', 400, 740, 'Tambahkan 1 sendok gula'],
-      ['process', 400, 830, 'Aduk rata'],
-      ['decision', 390, 910, 'Apakah sudah cukup manis?'],
-      ['output', 400, 1030, 'Sajikan teh manis'],
-      ['term', 400, 1120, 'Selesai'],
-      ['output', 640, 637, 'Sajikan teh tawar']
-    ], [
-      [0, 1],
-      [1, 2],
-      [2, 3],
-      [3, 4, 'Ya', 'bottom', 'top'],
-      [3, 2, 'Tidak', 'left', 'left'],
-      [4, 5],
-      [5, 6],
-      [6, 7, 'Ya', 'bottom', 'top'],
-      [6, 12, 'Tidak', 'right', 'left'],
-      [7, 8],
-      [8, 9],
-      [9, 7, 'Tidak', 'right', 'right'],
-      [9, 10, 'Ya', 'bottom', 'top'],
-      [10, 11],
-      [12, 11, '', 'bottom', 'right']
-    ]);
-  },
-  4: () => {
-    setMode('alur');
-    load([
-      ['term', 425, 20, 'Mulai'],
-      ['input', 425, 100, 'Siapkan alat ukur; lihat tekanan standar di stiker pintu'],
-      ['decision', 415, 230, 'Apakah ban dalam keadaan dingin?'],
-      ['process', 130, 247, 'Tunggu sampai ban dingin (±3 jam)'],
-      ['process', 425, 360, 'Buka tutup pentil ban'],
-      ['process', 425, 450, 'Pasang alat ukur pada pentil dan baca tekanan'],
-      ['decision', 415, 560, 'Apakah tekanan sesuai standar?'],
-      ['decision', 680, 560, 'Apakah tekanan kurang?'],
-      ['process', 690, 700, 'Tambah angin'],
-      ['process', 920, 587, 'Kurangi angin dengan menekan pentil'],
-      ['process', 425, 690, 'Tutup kembali pentil ban'],
-      ['decision', 415, 780, 'Apakah semua ban sudah dicek?'],
-      ['output', 425, 910, 'Catat hasil pengecekan tekanan semua ban'],
-      ['term', 425, 1020, 'Selesai']
-    ], [
-      [0, 1],
-      [1, 2],
-      [2, 4, 'Ya', 'bottom', 'top'],
-      [2, 3, 'Tidak', 'left', 'right'],
-      [3, 2, '', 'top', 'top'],
-      [4, 5],
-      [5, 6],
-      [6, 10, 'Ya', 'bottom', 'top'],
-      [6, 7, 'Tidak', 'right', 'left'],
-      [7, 8, 'Ya', 'bottom', 'top'],
-      [7, 9, 'Tidak', 'right', 'left'],
-      [8, 5, '', 'left', 'right'],
-      [9, 5, '', 'bottom', 'right'],
-      [10, 11],
-      [11, 4, 'Tidak', 'left', 'left'],
-      [11, 12, 'Ya', 'bottom', 'top'],
-      [12, 13]
-    ]);
-  },
-  5: () => {
-    setMode('prog');
-    load([
-      ['term', 425, 20, 'Mulai'],
-      ['process', 425, 100, 'ban ke = 1\nbatas bawah = 30\nbatas atas = 35'],
-      ['output', 425, 205, '"Mengukur ban ke-" + ban ke'],
-      ['input', 425, 295, 'tekanan ban'],
-      ['decision', 415, 385, 'tekanan ban < batas bawah'],
-      ['output', 20, 402, '"Ban ke-" + ban ke + ": KEMPES (kurang angin)"'],
-      ['decision', 415, 520, 'tekanan ban > batas atas'],
-      ['output', 230, 537, '"Ban ke-" + ban ke + ": TERLALU KERAS (kelebihan angin)"'],
-      ['output', 425, 645, '"Ban ke-" + ban ke + ": NORMAL"'],
-      ['process', 425, 735, 'ban ke = ban ke + 1'],
-      ['decision', 415, 825, 'ban ke <= 4'],
-      ['output', 425, 950, '"Pengecekan 4 ban selesai"'],
-      ['term', 425, 1040, 'Selesai']
+      ['process', 400, 195, 'Panaskan air hingga mendidih'],
+      ['process', 400, 280, 'Tuang air panas ke gelas berisi teh celup'],
+      ['process', 400, 370, 'Tunggu 3 menit, lalu angkat teh celup'],
+      ['decision', 390, 470, 'Apakah ingin teh manis?'],
+      ['process', 400, 595, 'Tambahkan 1 sendok gula pasir'],
+      ['process', 400, 680, 'Aduk rata hingga gula larut'],
+      ['decision', 390, 770, 'Apakah sudah cukup manis?'],
+      ['output', 400, 895, 'Sajikan teh manis hangat'],
+      ['term', 400, 985, 'Selesai'],
+      ['output', 650, 487, 'Sajikan teh tawar hangat']
     ], [
       [0, 1],
       [1, 2],
       [2, 3],
       [3, 4],
-      [4, 5, 'Ya', 'left', 'right'],
-      [4, 6, 'Tidak', 'bottom', 'top'],
-      [6, 7, 'Ya', 'left', 'right'],
-      [6, 8, 'Tidak', 'bottom', 'top'],
-      [5, 9, '', 'bottom', 'left'],
-      [7, 9, '', 'bottom', 'left'],
-      [8, 9],
+      [4, 5],
+      [5, 6, 'Ya', 'bottom', 'top'],
+      [5, 11, 'Tidak', 'right', 'left'],
+      [6, 7],
+      [7, 8],
+      [8, 6, 'Tidak', 'right', 'right'],
+      [8, 9, 'Ya', 'bottom', 'top'],
       [9, 10],
-      [10, 2, 'Ya', 'right', 'right'],
-      [10, 11, 'Tidak', 'bottom', 'top'],
-      [11, 12]
+      [11, 10, '', 'bottom', 'right']
+    ]);
+  },
+
+  // 2. Studi Kasus 1 (Pemeriksaan Tekanan Angin Ban Mobil)
+  // Mekanik mengukur tekanan angin ban mobil dengan batas aman 30 PSI.
+  // Jika tekanan kurang dari 30 PSI, ban harus diisi angin.
+  // Jika 30 PSI atau lebih, tekanan dinyatakan aman.
+  2: () => {
+    setMode('prog');
+    load([
+      ['term', 320, 20, 'Mulai'],
+      ['input', 320, 105, 'tekanan'],
+      ['decision', 310, 195, 'tekanan < 30'],
+      ['output', 50, 212, '"Tekanan kurang dari 30 PSI: Ban harus diisi angin"'],
+      ['output', 580, 212, '"Tekanan 30 PSI atau lebih: Tekanan ban aman"'],
+      ['term', 320, 350, 'Selesai']
+    ], [
+      [0, 1],
+      [1, 2],
+      [2, 3, 'Ya', 'left', 'right'],
+      [2, 4, 'Tidak', 'right', 'left'],
+      [3, 5, '', 'bottom', 'left'],
+      [4, 5, '', 'bottom', 'right']
+    ]);
+  },
+
+  // 3. Studi Kasus 2 (Diagnosis Ketebalan Kampas Rem Cakram)
+  // Pengecekan ketebalan kampas rem cakram depan dengan batas minimal aman 4,0 mm.
+  // Jika tebal kampas kurang dari 4,0 mm, tampilkan status "Ganti Kampas Rem".
+  // Jika 4,0 mm atau lebih, tampilkan "Kampas Rem Aman".
+  3: () => {
+    setMode('prog');
+    load([
+      ['term', 320, 20, 'Mulai'],
+      ['input', 320, 105, 'tebal_kampas'],
+      ['decision', 310, 195, 'tebal_kampas < 4.0'],
+      ['output', 50, 212, '"Ganti Kampas Rem"'],
+      ['output', 580, 212, '"Kampas Rem Aman"'],
+      ['term', 320, 350, 'Selesai']
+    ], [
+      [0, 1],
+      [1, 2],
+      [2, 3, 'Ya', 'left', 'right'],
+      [2, 4, 'Tidak', 'right', 'left'],
+      [3, 5, '', 'bottom', 'left'],
+      [4, 5, '', 'bottom', 'right']
+    ]);
+  },
+
+  // 4. Studi Kasus 3 (Diagnosis Kondisi Tegangan Aki Mobil)
+  // Pengukuran tegangan akumulator (aki) menggunakan multitester:
+  // V < 10 V (Aki Rusak/Ganti)
+  // 10 V <= V <= 12 V (Perlu Cas/Recharge)
+  // 12 V < V <= 14 V (Kondisi Normal)
+  // V > 14 V (Overcharge/Cek Regulator)
+  4: () => {
+    setMode('prog');
+    load([
+      ['term', 380, 20, 'Mulai'],
+      ['input', 380, 95, 'V'],
+      ['decision', 370, 175, 'V < 10'],
+      ['output', 90, 265, '"Aki Rusak / Ganti"'],
+      ['decision', 460, 265, 'V <= 12'],
+      ['output', 300, 355, '"Perlu Cas / Recharge"'],
+      ['decision', 570, 355, 'V <= 14'],
+      ['output', 510, 445, '"Kondisi Normal"'],
+      ['output', 720, 445, '"Overcharge / Cek Regulator"'],
+      ['term', 410, 550, 'Selesai']
+    ], [
+      [0, 1],
+      [1, 2],
+      [2, 3, 'Ya', 'left', 'top'],
+      [2, 4, 'Tidak', 'right', 'top'],
+      [4, 5, 'Ya', 'left', 'top'],
+      [4, 6, 'Tidak', 'right', 'top'],
+      [6, 7, 'Ya', 'left', 'top'],
+      [6, 8, 'Tidak', 'right', 'top'],
+      [3, 9, '', 'bottom', 'left'],
+      [5, 9, '', 'bottom', 'left'],
+      [7, 9, '', 'bottom', 'right'],
+      [8, 9, '', 'bottom', 'right']
+    ]);
+  },
+
+  // 5. Studi Kasus 4 (Kategori Biaya Servis Berkala Bengkel TKR)
+  // Pengelompokan estimasi biaya servis:
+  // Biaya <= Rp500.000 (Kategori Murah)
+  // Rp500.000 < Biaya <= Rp1.000.000 (Kategori Sedang)
+  // Rp1.000.000 < Biaya <= Rp2.000.000 (Kategori Mahal)
+  // Biaya > Rp2.000.000 (Kategori Sangat Mahal)
+  5: () => {
+    setMode('prog');
+    load([
+      ['term', 380, 20, 'Mulai'],
+      ['input', 380, 95, 'biaya'],
+      ['decision', 370, 175, 'biaya <= 500000'],
+      ['output', 90, 265, '"Kategori Murah"'],
+      ['decision', 460, 265, 'biaya <= 1000000'],
+      ['output', 300, 355, '"Kategori Sedang"'],
+      ['decision', 570, 355, 'biaya <= 2000000'],
+      ['output', 510, 445, '"Kategori Mahal"'],
+      ['output', 720, 445, '"Kategori Sangat Mahal"'],
+      ['term', 410, 550, 'Selesai']
+    ], [
+      [0, 1],
+      [1, 2],
+      [2, 3, 'Ya', 'left', 'top'],
+      [2, 4, 'Tidak', 'right', 'top'],
+      [4, 5, 'Ya', 'left', 'top'],
+      [4, 6, 'Tidak', 'right', 'top'],
+      [6, 7, 'Ya', 'left', 'top'],
+      [6, 8, 'Tidak', 'right', 'top'],
+      [3, 9, '', 'bottom', 'left'],
+      [5, 9, '', 'bottom', 'left'],
+      [7, 9, '', 'bottom', 'right'],
+      [8, 9, '', 'bottom', 'right']
+    ]);
+  },
+
+  // 6. Studi Kasus 5 (Sistem Peringatan Suhu Coolant Radiator Mesin)
+  // Indikator suhu cairan pendingin mesin (coolant):
+  // Suhu < 80°C (Mesin Dipanaskan/Warming Up)
+  // 80°C <= Suhu <= 95°C (Suhu Kerja Normal)
+  // 95°C < Suhu <= 105°C (Peringatan Suhu Tinggi)
+  // Suhu > 105°C (Bahaya Overheating/Matikan Mesin)
+  6: () => {
+    setMode('prog');
+    load([
+      ['term', 380, 20, 'Mulai'],
+      ['input', 380, 95, 'suhu'],
+      ['decision', 370, 175, 'suhu < 80'],
+      ['output', 90, 265, '"Mesin Dipanaskan / Warming Up"'],
+      ['decision', 460, 265, 'suhu <= 95'],
+      ['output', 300, 355, '"Suhu Kerja Normal"'],
+      ['decision', 570, 355, 'suhu <= 105'],
+      ['output', 510, 445, '"Peringatan Suhu Tinggi"'],
+      ['output', 720, 445, '"Bahaya Overheating / Matikan Mesin"'],
+      ['term', 410, 550, 'Selesai']
+    ], [
+      [0, 1],
+      [1, 2],
+      [2, 3, 'Ya', 'left', 'top'],
+      [2, 4, 'Tidak', 'right', 'top'],
+      [4, 5, 'Ya', 'left', 'top'],
+      [4, 6, 'Tidak', 'right', 'top'],
+      [6, 7, 'Ya', 'left', 'top'],
+      [6, 8, 'Tidak', 'right', 'top'],
+      [3, 9, '', 'bottom', 'left'],
+      [5, 9, '', 'bottom', 'left'],
+      [7, 9, '', 'bottom', 'right'],
+      [8, 9, '', 'bottom', 'right']
     ]);
   }
 };
@@ -3259,10 +3435,10 @@ $('#bClear').onclick = () => {
       draw();
       setTimeout(fitView, 100);
     } else {
-      EX[3]();
+      EX[1]();
     }
   } catch (e) {
-    EX[3]();
+    EX[1]();
   }
   updateViewport();
   updateUndoRedoBtns();
